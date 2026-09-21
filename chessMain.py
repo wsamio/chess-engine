@@ -62,20 +62,16 @@ def drawGameState(screen, gs):
 Draw the squares on the board. Top left square is always white.
 '''
 def drawBoard(screen):
-    colors = [p.Color("white"), p.Color("gray")]
+    colors = [p.image.load("images/square brown light_png_128px.png"), p.image.load("images/square brown dark_png_128px.png")]
     for r in range(DIMENSION):
         for c in range(DIMENSION):
             color = colors[((r + c) % 2)]
-            p.draw.rect(screen, color, p.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
-
-
+            screen.blit(color, p.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
 
 
 '''
 Draw the pieces on the boad using the current GameState.board.
 '''
-
-
 def drawPieces(screen, board):
     for r in range(DIMENSION):
         for c in range(DIMENSION):
