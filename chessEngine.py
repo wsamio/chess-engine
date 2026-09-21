@@ -18,7 +18,7 @@ class GameState():
             ["--", "--", "--", "--", "--", "--", "--", "--"],
             ["--", "--", "--", "--", "--", "--", "--", "--"],
             ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
-            ["bR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"]  
+            ["wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"]  
         ]
         
         self.whiteToMove = True
