@@ -39,10 +39,29 @@ def main():
     loadImages() # only do this once , before the while loop
 
     running = True
+    sqSelected = () # no square is selected initially, it keeps the track of the last click of the user (tuple: (row, col))
+    playerClicks = [] # it keeps track of player clicks (two tuples: [(r1, c1), (r2, c2)])
     while running:
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
+            elif e.type == p.MOUSEBUTTONDOWN:
+                location = p.mouse.get_pos() # (x, y) location of the mouse
+
+                col = location[0]/SQ_SIZE 
+                row = location[1]/SQ_SIZE
+                if (row, col) == sqSelected: # the user clicked the same square twice
+                    sqSelected = () # deselect for double click
+                else:
+                    sqSelected = (row, col)
+                    playerClicks.append(sqSelected)
+
+                if len(playerClicks) == 2: # after the second click
+                    move  = chessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
+                    print(move.getChessNotation())
+                    gs.makeMove(move)
+                    sqSelected = () # reset user clicks
+                    playerClicks = []
 
         drawGameState(screen, gs)
 
@@ -76,7 +95,7 @@ def drawPieces(screen, board):
     for r in range(DIMENSION):
         for c in range(DIMENSION):
             piece = board[r][c]
-            if piece != "--": #not empty square
+            if piece != "--": # not empty square
                 screen.blit(IMAGES[piece], p.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
 
 
